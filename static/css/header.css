@@ -5,7 +5,9 @@ header {
   background: rgba(245, 246, 248, .82);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--steel-200);
+  transition: transform .3s var(--ease);
 }
+header.header-hidden { transform: translateY(-100%); }
 
 .nav {
   display: flex;

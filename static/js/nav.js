@@ -16,3 +16,26 @@
     });
   });
 })();
+
+
+(function () {
+  var header = document.getElementById('top');
+  if (!header) return;
+
+  var lastY = window.scrollY;
+  var hideThreshold = 120; // не прячем, пока не проскроллили хотя бы на 120px от верха
+
+  window.addEventListener('scroll', function () {
+    var currentY = window.scrollY;
+
+    if (currentY < hideThreshold) {
+      header.classList.remove('header-hidden');
+    } else if (currentY > lastY) {
+      header.classList.add('header-hidden');
+    } else {
+      header.classList.remove('header-hidden');
+    }
+
+    lastY = currentY;
+  }, { passive: true });
+})();

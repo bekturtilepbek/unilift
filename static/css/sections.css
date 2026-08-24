@@ -42,21 +42,31 @@
   .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
 }
 
-/* ===================== PARTNERSHIP ===================== */
-.partnership { background: var(--white); border-top: 1px solid var(--steel-200); border-bottom: 1px solid var(--steel-200); }
-.partnership .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding-top: 96px; padding-bottom: 96px; }
-.partnership h2 { font-size: clamp(28px, 3.4vw, 42px); margin: 18px 0 22px; }
-.partnership p { color: var(--steel-700); font-size: 17px; margin-bottom: 16px; }
-.pcard { background: var(--steel-900); color: #fff; border-radius: 4px; padding: 44px; position: relative; overflow: hidden; }
-.pcard::after {
+/* ===================== ABOUT (О компании) ===================== */
+.about { background: var(--white); border-top: 1px solid var(--steel-200); border-bottom: 1px solid var(--steel-200); }
+.about .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; padding-top: 96px; padding-bottom: 96px; }
+.about h2 { font-size: clamp(28px, 3.4vw, 42px); margin: 18px 0 22px; }
+.about p { color: var(--steel-700); font-size: 17px; margin-bottom: 16px; }
+
+.about-card {
+  background: var(--steel-900); color: #fff; border-radius: 4px;
+  padding: 36px 40px; position: relative; overflow: hidden;
+}
+.about-card::after {
   content: ""; position: absolute; right: -40px; bottom: -40px;
   width: 200px; height: 200px; border: 1px solid rgba(255,255,255,.06); border-radius: 50%;
 }
+.about-card .ac-logo { font-family: var(--font-display); font-weight: 800; font-size: 26px; letter-spacing: .14em; margin-bottom: 6px; }
+.about-card .ac-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; color: #FF4D4D; text-transform: uppercase; margin-bottom: 22px; }
 
-.pcard ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
-.pcard li { display: flex; gap: 14px; align-items: flex-start; font-size: 15px; color: var(--steel-100); }
-.pcard li .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; margin-top: 8px; flex: none; }
-@media (max-width: 900px) { .partnership .wrap { grid-template-columns: 1fr; } }
+.ac-list { display: flex; flex-direction: column; }
+.ac-item { padding: 16px 0; border-top: 1px solid rgba(255,255,255,.08); }
+.ac-item:first-child { border-top: none; padding-top: 0; }
+.ac-item .ac-num { font-family: var(--font-mono); font-size: 11px; color: var(--accent); margin-bottom: 6px; }
+.ac-item h4 { color: #fff; font-size: 15.5px; font-weight: 600; margin-bottom: 4px; }
+.ac-item p { color: var(--steel-300); font-size: 13.5px; line-height: 1.5; margin-bottom: 0; }
+
+@media (max-width: 900px) { .about .wrap { grid-template-columns: 1fr; } }
 
 /* ===================== PRODUCTS ===================== */
 .products { padding: 110px 0; background: var(--steel-100); }
@@ -161,15 +171,25 @@
 @media (max-width: 600px) { .pgrid { grid-template-columns: 1fr; } }
 
 /* ===================== CONTACTS ===================== */
-.contacts-section { padding: 110px 0; background: var(--steel-900); color: #fff; }
-.contacts-section h2 { color: #fff; font-size: clamp(28px, 3.2vw, 42px); margin: 18px 0 22px; }
+.contacts-section { padding: 80px 0; background: var(--steel-900); color: #fff; }
+.contacts-inner { max-width: 560px; }
+.contacts-section h2 { color: #fff; font-size: clamp(26px, 3vw, 36px); margin: 14px 0 12px; }
+.contacts-lead { color: var(--steel-300); font-size: 15px; margin-bottom: 26px; }
 
-.cinfo { display: flex; flex-direction: column; gap: 2px; margin-bottom: 34px; max-width: 520px; }
-.crow { display: flex; gap: 18px; padding: 22px 0; border-top: 1px solid rgba(255,255,255,.09); }
-.crow:last-child { border-bottom: 1px solid rgba(255,255,255,.09); }
-.crow .cico { width: 22px; height: 22px; color: var(--accent); flex: none; margin-top: 2px; }
-.crow .clbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--steel-500); margin-bottom: 5px; }
-.crow .cval { font-size: 16px; color: #fff; }
-.crow .cval a:hover { color: var(--accent); }
+.btn-whatsapp {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #25D366; color: #0B2E1A;
+  font-family: var(--font-display); font-weight: 700; font-size: 15px;
+  padding: 15px 26px; border-radius: 2px;
+  transition: transform .2s var(--ease), background .2s var(--ease);
+}
+.btn-whatsapp:hover { background: #1EBE5B; transform: translateY(-1px); }
 
-.contact-buttons { display: flex; gap: 16px; }
+.contacts-meta {
+  display: flex; flex-wrap: wrap; gap: 8px 20px;
+  margin-top: 26px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  font-size: 13.5px; color: var(--steel-500);
+}
+.contacts-meta a { color: var(--steel-300); }
+.contacts-meta a:hover { color: #fff; }
