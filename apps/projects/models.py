@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill, ResizeToFit
 
@@ -18,11 +19,23 @@ class ProjectCategory(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name, allow_unicode=False)
+        super().save(*args, **kwargs)
+
 
 class Project(models.Model):
     title = models.CharField(_("Название проекта"), max_length=200)
     slug = models.SlugField(_("Slug"), max_length=220, unique=True, help_text=_("Используется в адресе страницы, например: tsum-bishkek"))
-    categories = models.ManyToManyField(ProjectCategory, verbose_name=_("Категории"), related_name="projects", blank=True)
+    category = models.ForeignKey(
+        ProjectCategory,
+        verbose_name=_("Категория"),
+        related_name="projects",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
 
     summary = models.CharField(_("Краткое описание"), max_length=200, help_text=_("Показывается в карточке на лендинге и в каталоге, до 200 символов"))
     description = models.TextField(_("Полное описание"), blank=True, help_text=_("Показывается на детальной странице проекта"))
@@ -52,8 +65,10 @@ class Project(models.Model):
         verbose_name_plural = _("Проекты")
         ordering = ["order", "-created_at"]
 
-    def __str__(self):
-        return self.title
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title, allow_unicode=False)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("projects:detail", kwargs={"slug": self.slug})

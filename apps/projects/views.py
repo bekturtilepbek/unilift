@@ -10,10 +10,10 @@ class ProjectListView(ListView):
     paginate_by = 9
 
     def get_queryset(self):
-        qs = Project.objects.filter(is_published=True).prefetch_related("categories")
+        qs = Project.objects.filter(is_published=True).select_related("category")
         category_slug = self.request.GET.get("category")
         if category_slug:
-            qs = qs.filter(categories__slug=category_slug)
+            qs = qs.filter(category__slug=category_slug)
         return qs
 
     def get_context_data(self, **kwargs):
@@ -29,4 +29,4 @@ class ProjectDetailView(DetailView):
     context_object_name = "project"
 
     def get_queryset(self):
-        return Project.objects.filter(is_published=True).prefetch_related("images", "categories")
+        return Project.objects.filter(is_published=True).prefetch_related("images").select_related("category")

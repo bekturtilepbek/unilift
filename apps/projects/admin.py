@@ -9,9 +9,9 @@ from .models import Project, ProjectCategory, ProjectImage
 
 @admin.register(ProjectCategory)
 class ProjectCategoryAdmin(TabbedTranslationAdmin, ModelAdmin):
-    list_display = ("name", "slug", "order")
+    list_display = ("name", "order")
     list_editable = ("order",)
-    prepopulated_fields = {"slug": ("name",)}
+    fields = ("name", "order")
     search_fields = ("name",)
 
 
@@ -34,28 +34,19 @@ class ProjectImageInline(TabularInline):
 class ProjectAdmin(TabbedTranslationAdmin, ModelAdmin):
     list_display = ("cover_preview", "title", "city", "year", "is_published", "is_featured", "order")
     list_editable = ("is_published", "is_featured", "order")
-    list_filter = ("is_published", "is_featured", "categories", "city")
+    list_filter = ("is_published", "is_featured", "category", "city")
     search_fields = ("title", "summary", "city", "client_name")
-    filter_horizontal = ("categories",)
     inlines = [ProjectImageInline]
 
     fieldsets = (
         (_("Основное"), {
-            "fields": ("title", "categories", "summary", "cover"),
+            "fields": ("title", "category", "summary", "cover"),
         }),
         (_("Подробности"), {
             "fields": ("description", "city", "year", "client_name", "equipment"),
         }),
         (_("Публикация"), {
             "fields": ("is_published", "is_featured", "order"),
-        }),
-        (_("Технические настройки"), {
-            "fields": ("slug",),
-            "classes": ("collapse",),
-            "description": _(
-                "Slug используется в адресе страницы проекта. Заполняется автоматически "
-                "по названию — трогать вручную не нужно, если не уверены."
-            ),
         }),
     )
 

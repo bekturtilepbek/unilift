@@ -11,8 +11,8 @@
   <div class="wrap">
     <a href="{% url 'projects:list' %}" class="back-link">← {% translate "Все проекты" %}</a>
 
-    {% if project.categories.all %}
-      <div class="pcat">{{ project.categories.all|join:" · " }}</div>
+    {% if project.category %}
+      <div class="pcat">{{ project.category.name }}</div>
     {% endif %}
     <h1>{{ project.title }}</h1>
 

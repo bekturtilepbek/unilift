@@ -6,13 +6,13 @@
     {% else %}
       <span class="ph">{% translate "Фото объекта" %}</span>
     {% endif %}
-    {% if project.categories.first %}
-      <span class="tag">{{ project.categories.first.name|upper }}</span>
+    {% if project.category %}
+      <span class="tag">{{ project.category.name|upper }}</span>
     {% endif %}
   </div>
   <div class="pbody">
-    {% if project.categories.all %}
-      <div class="pcat">{{ project.categories.all|join:" · " }}</div>
+    {% if project.category %}
+      <div class="pcat">{{ project.category.name }}</div>
     {% endif %}
     <h3>{{ project.title }}</h3>
     <p>{{ project.summary }}</p>

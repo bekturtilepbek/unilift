@@ -12,7 +12,7 @@ class HomeView(TemplateView):
         ctx = super().get_context_data(**kwargs)
         ctx["featured_projects"] = (
             Project.objects.filter(is_published=True, is_featured=True)
-            .prefetch_related("categories")
+            .select_related("category")
             .order_by("order", "-created_at")[:6]
         )
         return ctx
