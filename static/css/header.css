@@ -12,7 +12,7 @@ header.header-hidden { transform: translateY(-100%); }
 .nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 40px;
   height: 72px;
 }
 
@@ -55,7 +55,7 @@ header.header-hidden { transform: translateY(-100%); }
 .menu a:hover { color: var(--ink); }
 .menu a:hover::after { width: 100%; }
 
-.nav-cta { display: flex; align-items: center; gap: 16px; }
+.nav-cta { display: flex; align-items: center; gap: 16px; margin-left: auto; }
 
 .lang-switch { display: flex; gap: 6px; }
 .lang-switch form { display: contents; }

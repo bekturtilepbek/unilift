@@ -7,7 +7,6 @@
 /* ===================== HERO ===================== */
 .hero {
   position: relative;
-  min-height: 640px;
   overflow: hidden;
 }
 
@@ -30,11 +29,11 @@
 }
 
 .hero .wrap {
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 2;
   display: flex;
   align-items: flex-end;
+  min-height: 640px;
 }
 
 .hero-content {
@@ -58,8 +57,8 @@
 .hero-cta { display: flex; gap: 16px; margin-top: 32px; }
 
 @media (max-width: 700px) {
-  .hero { min-height: 520px; }
-  .hero-content { padding: 80px 0 50px; }
+  .hero .wrap { min-height: 480px; }
+  .hero-content { padding: 96px 0 50px; max-width: 100%; }
 }
 
 /* ===================== STATS ===================== */
