@@ -35,4 +35,6 @@ img { max-width: 100%; display: block; }
     transition: none !important;
     scroll-behavior: auto !important;
   }
+  .hero-video { display: none; }
+  .hero { background-image: url('/static/img/hero-poster.jpg'); background-size: cover; background-position: center; }
 }

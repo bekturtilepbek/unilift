@@ -1,7 +1,19 @@
 {% load i18n static %}
 <section class="hero" id="hero">
+  <video
+    class="hero-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    poster="{% static 'img/hero-poster.jpg' %}"
+  >
+    <source src="{% static 'video/hero-elevator.mp4' %}" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+
   <div class="wrap">
-    <div class="hero-text">
+    <div class="hero-content">
       <h1>{% translate "Официальный дистрибьютор" %} <span class="accent">Schindler</span> {% translate "в Кыргызстане" %}</h1>
       <p class="lead">{% translate "Более 8 лет поставляем, устанавливаем и обслуживаем лифты, эскалаторы и подъёмное оборудование. Безопасные решения для вертикального транспорта — на объектах любого масштаба." %}</p>
       <div class="hero-cta">
@@ -9,62 +21,8 @@
           {% translate "Подобрать оборудование" %}
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <a href="#contacts" class="btn btn-ghost">{% translate "Связаться с нами" %}</a>
+        <a href="#contacts" class="btn btn-ghost on-dark">{% translate "Связаться с нами" %}</a>
       </div>
-    </div>
-
-    <div class="hero-visual">
-      <svg viewBox="0 0 480 560" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="panelL" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#333333"/>
-            <stop offset="55%" stop-color="#222222"/>
-            <stop offset="100%" stop-color="#141414"/>
-          </linearGradient>
-          <linearGradient id="panelR" x1="1" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#2E2E2E"/>
-            <stop offset="55%" stop-color="#1E1E1E"/>
-            <stop offset="100%" stop-color="#141414"/>
-          </linearGradient>
-          <linearGradient id="warmGlow" x1="0.5" y1="0" x2="0.5" y2="1">
-            <stop offset="0%" stop-color="#FF6B4A"/>
-            <stop offset="45%" stop-color="#E2001A"/>
-            <stop offset="100%" stop-color="#7A0009"/>
-          </linearGradient>
-          <radialGradient id="vignette" cx="0.5" cy="0.42" r="0.75">
-            <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
-            <stop offset="100%" stop-color="#000000" stop-opacity="0.45"/>
-          </radialGradient>
-          <filter id="softBlur" x="-60%" y="-60%" width="220%" height="220%">
-            <feGaussianBlur stdDeviation="14"/>
-          </filter>
-          <pattern id="blueprint" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.05"/>
-          </pattern>
-        </defs>
-
-        <rect width="480" height="560" fill="#141414"/>
-        <rect width="480" height="560" fill="url(#blueprint)"/>
-        <rect x="205" y="40" width="70" height="480" fill="url(#warmGlow)" filter="url(#softBlur)" opacity="0.55"/>
-        <rect x="60" y="40" width="175" height="480" fill="url(#panelL)"/>
-        <line x1="90" y1="40" x2="90" y2="520" stroke="#3E3E3E" stroke-width="1"/>
-        <line x1="205" y1="40" x2="205" y2="520" stroke="#0A0A0A" stroke-width="2"/>
-        <rect x="245" y="40" width="175" height="480" fill="url(#panelR)"/>
-        <line x1="390" y1="40" x2="390" y2="520" stroke="#3A3A3A" stroke-width="1"/>
-        <line x1="245" y1="40" x2="245" y2="520" stroke="#0A0A0A" stroke-width="2"/>
-        <rect x="234" y="40" width="12" height="480" fill="url(#warmGlow)"/>
-        <g stroke="#5A5A5A" stroke-width="1" opacity="0.5">
-          <line x1="60" y1="70" x2="90" y2="70"/>
-          <line x1="60" y1="90" x2="90" y2="90"/>
-          <line x1="390" y1="70" x2="420" y2="70"/>
-          <line x1="390" y1="90" x2="420" y2="90"/>
-        </g>
-        <rect width="480" height="560" fill="url(#vignette)"/>
-        <path d="M60 76V56h20" fill="none" stroke="#E2001A" stroke-width="1.5"/>
-        <text x="66" y="50" font-family="JetBrains Mono, monospace" font-size="10" fill="#E2001A" letter-spacing="1">SCH · 3300</text>
-        <path d="M420 500v20h-20" fill="none" stroke="#5A5A5A" stroke-width="1.5" opacity="0.6"/>
-        <text x="330" y="536" font-family="JetBrains Mono, monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">KG · 2026</text>
-      </svg>
     </div>
   </div>
 </section>

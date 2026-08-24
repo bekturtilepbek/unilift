@@ -11,10 +11,12 @@
 
       <div class="footer-col">
         <h4>{% translate "Навигация" %}</h4>
-        <a href="#products">{% translate "Оборудование" %}</a>
-        <a href="#services">{% translate "Услуги" %}</a>
-        <a href="#projects">{% translate "Проекты" %}</a>
-        <a href="#why">{% translate "О компании" %}</a>
+          <a href="#why">{% translate "О компании" %}</a>
+          <a href="#products">{% translate "Оборудование" %}</a>
+          <a href="#services">{% translate "Услуги" %}</a>
+          <a href="#industries">{% translate "Отрасли" %}</a>
+          <a href="#projects">{% translate "Проекты" %}</a>
+          <a href="#contacts">{% translate "Контакты" %}</a>
       </div>
 
       <div class="footer-col">
@@ -23,11 +25,6 @@
         {% if site.email %}<a href="mailto:{{ site.email }}">{{ site.email }}</a>{% endif %}
         {% if site.address %}<p>{{ site.address }}</p>{% endif %}
         <p>{{ site.work_hours }}</p>
-      </div>
-
-      <div class="footer-col">
-        <h4>Schindler</h4>
-        <img src="{% static 'img/logo-schindler.png' %}" alt="Schindler" style="margin-top:8px; max-width:120px;">
       </div>
     </div>
 
