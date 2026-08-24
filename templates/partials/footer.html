@@ -20,11 +20,10 @@
       </div>
 
       <div class="footer-col">
-        <h4>{% translate "Контакты" %}</h4>
-        {% if site.phone %}<a href="tel:{{ site.phone }}">{{ site.phone_display }}</a>{% endif %}
-        {% if site.email %}<a href="mailto:{{ site.email }}">{{ site.email }}</a>{% endif %}
-        {% if site.address %}<p>{{ site.address }}</p>{% endif %}
-        <p>{{ site.work_hours }}</p>
+        <h4>{% translate "Связаться" %}</h4>
+        {% if site.whatsapp %}<a href="{{ site.whatsapp }}" target="_blank" rel="noopener">WhatsApp</a>{% endif %}
+        {% if site.telegram %}<a href="{{ site.telegram }}" target="_blank" rel="noopener">Telegram</a>{% endif %}
+        <a href="#contacts">{% translate "Все контакты" %} →</a>
       </div>
     </div>
 

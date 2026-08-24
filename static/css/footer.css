@@ -2,7 +2,7 @@ footer {
   background: var(--steel-900);
   color: var(--steel-300);
   padding: 70px 0 30px;
-  border-top: 1px solid rgba(255, 255, 255, .1);
+  border-top: 1px solid rgba(255, 255, 255, .16);
 }
 
 .footer-grid {
