@@ -18,16 +18,21 @@
       </div>
 
       <div class="nav-cta">
-        <form action="{% url 'set_language' %}" method="post" class="lang-switch">
-          {% csrf_token %}
-          <input name="next" type="hidden" value="{{ request.path }}">
-          {% get_current_language as CURRENT_LANGUAGE %}
-          {% get_available_languages as AVAILABLE_LANGUAGES %}
-          {% for lang_code, lang_name in AVAILABLE_LANGUAGES %}
-            <button type="submit" name="language" value="{{ lang_code }}"
-                    class="{% if lang_code == CURRENT_LANGUAGE %}active{% endif %}">{{ lang_code|upper }}</button>
-          {% endfor %}
-        </form>
+        {% get_current_language as CURRENT_LANGUAGE %}
+        <div class="lang-switch">
+          <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="language" value="ru">
+            <input type="hidden" name="next" value="{{ lang_url_ru }}">
+            <button type="submit" class="{% if CURRENT_LANGUAGE == 'ru' %}active{% endif %}">RU</button>
+          </form>
+          <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="language" value="ky">
+            <input type="hidden" name="next" value="{{ lang_url_ky }}">
+            <button type="submit" class="{% if CURRENT_LANGUAGE == 'ky' %}active{% endif %}">KY</button>
+          </form>
+        </div>
 
         <a href="#contacts" class="btn btn-primary">{% translate "Связаться" %}</a>
 

@@ -4,13 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}ЮНИЛИФТ — Официальный дистрибьютор Schindler в Кыргызстане{% endblock %}</title>
-<meta name="description" content="{% block meta_description %}Поставка, монтаж и сервисное обслуживание лифтов, эскалаторов и подъёмного оборудования Schindler в Кыргызстане.{% endblock %}">
+<title>{% block title %}{% translate "ЮНИЛИФТ — Официальный дистрибьютор Schindler в Кыргызстане" %}{% endblock %}</title>
+<meta name="description" content="{% block meta_description %}{% translate "Поставка, монтаж и сервисное обслуживание лифтов, эскалаторов и подъёмного оборудования Schindler в Кыргызстане." %}{% endblock %}">
 <link rel="canonical" href="{{ request.build_absolute_uri }}">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ЮНИЛИФТ">
-<meta property="og:title" content="{% block og_title %}ЮНИЛИФТ — Официальный дистрибьютор Schindler в Кыргызстане{% endblock %}"><meta property="og:description" content="{% block og_description %}Поставка, монтаж и сервисное обслуживание лифтов, эскалаторов и подъёмного оборудования Schindler в Кыргызстане.{% endblock %}">
+<meta property="og:title" content="{% block og_title %}{% translate "ЮНИЛИФТ — Официальный дистрибьютор Schindler в Кыргызстане" %}{% endblock %}">
+<meta property="og:description" content="{% block og_description %}{% translate "Поставка, монтаж и сервисное обслуживание лифтов, эскалаторов и подъёмного оборудования Schindler в Кыргызстане." %}{% endblock %}">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta property="og:locale" content="{{ LANGUAGE_CODE }}">
 <meta name="twitter:card" content="summary_large_image">

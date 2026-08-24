@@ -31,4 +31,6 @@ def hreflang_urls(request):
     return {
         "hreflang_ru": base + ru_path,
         "hreflang_ky": base + ky_path,
+        "lang_url_ru": ru_path,
+        "lang_url_ky": ky_path,
     }

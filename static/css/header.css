@@ -58,6 +58,7 @@ header.header-hidden { transform: translateY(-100%); }
 .nav-cta { display: flex; align-items: center; gap: 16px; }
 
 .lang-switch { display: flex; gap: 6px; }
+.lang-switch form { display: contents; }
 .lang-switch button {
   background: none; border: none; cursor: pointer;
   font-family: var(--font-mono); font-size: 12px; font-weight: 600;
