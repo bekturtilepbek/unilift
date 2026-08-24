@@ -1,25 +1,22 @@
-from .models import SiteSettings
-
-
 def site_settings(request):
     """
-    Отдаёт контакты клиента во все шаблоны как `site`. Данные читаются из
-    единственной записи SiteSettings — редактируется в админке без участия
-    разработчика.
+    Контакты компании — правятся прямо здесь, без отдельной модели/админки.
+    Это простые статичные данные, которые меняются раз в год, отдельная
+    таблица в базе ради них — лишняя сложность.
     """
-    settings_obj = SiteSettings.load()
     return {
         "site": {
-            "phone": settings_obj.phone,
-            "phone_display": settings_obj.phone_display,
-            "whatsapp": settings_obj.whatsapp,
-            "telegram": settings_obj.telegram,
-            "email": settings_obj.email,
-            "address": settings_obj.address,
-            "work_hours": settings_obj.work_hours,
-            "map_url": settings_obj.map_url,
+            "phone": "+996700000000",
+            "phone_display": "+996 700 000 000",
+            "whatsapp": "https://wa.me/996700000000",
+            "telegram": "https://t.me/unilift",
+            "email": "info@unilift.kg",
+            "address": "г. Бишкек, ул. Примерная, 1",
+            "work_hours": "Пн–Сб 09:00–18:00",
+            "map_url": "",
         }
     }
+
 
 def hreflang_urls(request):
     """Строит корректные alternate-ссылки для ru/ky без задвоения префикса."""

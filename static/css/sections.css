@@ -30,7 +30,7 @@
 }
 
 /* ===================== STATS ===================== */
-.stats { background: var(--ink); color: #fff; }
+.stats { background: var(--steel-900); color: #fff; }
 .stats .wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; padding: 0 32px; }
 .stat { padding: 44px 30px; border-right: 1px solid rgba(255,255,255,.08); }
 .stat:last-child { border-right: none; }
@@ -161,7 +161,7 @@
 @media (max-width: 600px) { .pgrid { grid-template-columns: 1fr; } }
 
 /* ===================== CONTACTS ===================== */
-.contacts-section { padding: 110px 0; background: var(--ink); color: #fff; }
+.contacts-section { padding: 110px 0; background: var(--steel-900); color: #fff; }
 .contacts-section h2 { color: #fff; font-size: clamp(28px, 3.2vw, 42px); margin: 18px 0 22px; }
 
 .cinfo { display: flex; flex-direction: column; gap: 2px; margin-bottom: 34px; max-width: 520px; }
