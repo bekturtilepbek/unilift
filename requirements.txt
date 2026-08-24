@@ -14,9 +14,6 @@ django-modeltranslation==0.20.3
 django-imagekit==6.1.0
 Pillow==12.3.0
 
-# --- Формы / защита ---
-django-ratelimit==4.1.0
-
 # --- Статика и сервер ---
 whitenoise==6.12.0
 gunicorn==26.0.0

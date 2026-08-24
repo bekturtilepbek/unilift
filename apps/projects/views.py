@@ -1,4 +1,3 @@
-from django.core.paginator import Paginator
 from django.views.generic import DetailView, ListView
 
 from .models import Project, ProjectCategory
