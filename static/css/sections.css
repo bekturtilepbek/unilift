@@ -90,8 +90,8 @@
 }
 
 .ac-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-.ac-item .ac-check { margin-bottom: 12px; }
-.ac-item h4 { color: #fff; font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.ac-item-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.ac-item h4 { color: #fff; font-size: 15px; font-weight: 600; margin-bottom: 0; }
 .ac-item p { color: var(--steel-300); font-size: 13px; line-height: 1.5; margin-bottom: 0; }
 
 @media (max-width: 900px) { .about .wrap { grid-template-columns: 1fr; } }
@@ -153,7 +153,7 @@
 @media (max-width: 900px) { .ind-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ===================== PROJECTS (лендинг) ===================== */
-.projects-section { padding: 110px 0; background: var(--paper); }
+.projects-section { padding: 110px 0; background: var(--white); }
 .projects-section h2 { font-size: clamp(28px, 3.2vw, 42px); margin: 16px 0 40px; }
 .projects-more { margin-top: 40px; text-align: center; }
 .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }

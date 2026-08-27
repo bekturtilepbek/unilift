@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% translate "Реализованные проекты" %} — ЮНИЛИФТ{% endblock %}
+{% block title %}{% translate "Реализованные проекты" %} — Unilift{% endblock %}
 
 {% block content %}
 <section class="catalog">
   <div class="wrap">
+    <a href="{% url 'core:home' %}" class="back-link">← {% translate "На главную" %}</a>
     <h1>{% translate "Реализованные проекты" %}</h1>
 
     <div class="catalog-filters">

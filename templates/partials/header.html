@@ -2,8 +2,8 @@
 <header id="top">
   <div class="wrap">
     <nav class="nav">
-      <a href="{% url 'core:home' %}" class="brand" aria-label="Юнилифт — на главную">
-        <img src="{% static 'img/logo-unilift-header.png' %}" alt="Юнилифт">
+      <a href="{% url 'core:home' %}" class="brand" aria-label="Unilift — на главную">
+        <img src="{% static 'img/logo-unilift-header.png' %}" alt="Unilift">
       </a>
 
       <img src="{% static 'img/logo-schindler.png' %}" alt="Официальный дистрибьютор Schindler" class="hp-logo">
@@ -13,7 +13,7 @@
         <a href="#products">{% translate "Оборудование" %}</a>
         <a href="#services">{% translate "Услуги" %}</a>
         <a href="#industries">{% translate "Отрасли" %}</a>
-        <a href="#projects">{% translate "Проекты" %}</a>
+        <a href="{% url 'projects:list' %}">{% translate "Проекты" %}</a>
         <a href="#contacts">{% translate "Контакты" %}</a>
       </div>
 
@@ -49,7 +49,7 @@
   <a href="#products">{% translate "Оборудование" %}</a>
   <a href="#services">{% translate "Услуги" %}</a>
   <a href="#industries">{% translate "Отрасли" %}</a>
-  <a href="#projects">{% translate "Проекты" %}</a>
+  <a href="{% url 'projects:list' %}">{% translate "Проекты" %}</a>
   <a href="#contacts">{% translate "Контакты" %}</a>
   <a href="#contacts" class="btn btn-primary mobile-cta">{% translate "Связаться" %}</a>
 </div>
