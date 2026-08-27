@@ -9,12 +9,12 @@
       <img src="{% static 'img/logo-schindler.png' %}" alt="Официальный дистрибьютор Schindler" class="hp-logo">
 
       <div class="menu">
-        <a href="#why">{% translate "О компании" %}</a>
-        <a href="#products">{% translate "Оборудование" %}</a>
-        <a href="#services">{% translate "Услуги" %}</a>
-        <a href="#industries">{% translate "Отрасли" %}</a>
+        <a href="{% url 'core:home' %}#why">{% translate "О компании" %}</a>
+        <a href="{% url 'core:home' %}#products">{% translate "Оборудование" %}</a>
+        <a href="{% url 'core:home' %}#services">{% translate "Услуги" %}</a>
+        <a href="{% url 'core:home' %}#industries">{% translate "Отрасли" %}</a>
         <a href="{% url 'projects:list' %}">{% translate "Проекты" %}</a>
-        <a href="#contacts">{% translate "Контакты" %}</a>
+        <a href="{% url 'core:home' %}#contacts">{% translate "Контакты" %}</a>
       </div>
 
       <div class="nav-cta">
@@ -34,7 +34,7 @@
           </form>
         </div>
 
-        <a href="#contacts" class="btn btn-primary">{% translate "Связаться" %}</a>
+        <a href="{% url 'core:home' %}#contacts" class="btn btn-primary">{% translate "Связаться" %}</a>
 
         <button class="burger" id="burger" aria-label="Меню">
           <span></span><span></span><span></span>
@@ -45,11 +45,11 @@
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#why">{% translate "О компании" %}</a>
-  <a href="#products">{% translate "Оборудование" %}</a>
-  <a href="#services">{% translate "Услуги" %}</a>
-  <a href="#industries">{% translate "Отрасли" %}</a>
+  <a href="{% url 'core:home' %}#why">{% translate "О компании" %}</a>
+  <a href="{% url 'core:home' %}#products">{% translate "Оборудование" %}</a>
+  <a href="{% url 'core:home' %}#services">{% translate "Услуги" %}</a>
+  <a href="{% url 'core:home' %}#industries">{% translate "Отрасли" %}</a>
   <a href="{% url 'projects:list' %}">{% translate "Проекты" %}</a>
-  <a href="#contacts">{% translate "Контакты" %}</a>
-  <a href="#contacts" class="btn btn-primary mobile-cta">{% translate "Связаться" %}</a>
+  <a href="{% url 'core:home' %}#contacts">{% translate "Контакты" %}</a>
+  <a href="{% url 'core:home' %}#contacts" class="btn btn-primary mobile-cta">{% translate "Связаться" %}</a>
 </div>
