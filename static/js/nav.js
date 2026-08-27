@@ -15,6 +15,13 @@
       burger.classList.remove('open');
     });
   });
+
+  // Закрываем меню при смене масштаба/повороте экрана — иначе виснет поверх
+  // уже не мобильной раскладки
+  window.addEventListener('resize', function () {
+    mobileMenu.classList.remove('open');
+    burger.classList.remove('open');
+  });
 })();
 
 

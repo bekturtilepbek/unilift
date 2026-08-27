@@ -86,6 +86,12 @@ header.header-hidden { transform: translateY(-100%); }
   border-bottom: 1px solid var(--steel-200);
   color: var(--ink);
 }
+.mobile-menu .mobile-cta {
+  display: inline-flex;
+  margin-top: 20px;
+  border-bottom: none;
+  padding: 15px 26px;
+}
 
 @media (max-width: 860px) {
   .menu, .nav-cta .btn-primary { display: none; }
