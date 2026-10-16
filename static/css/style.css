@@ -399,54 +399,9 @@ img { max-width: 100%; display: block; }
   }
 }
 
-/* ===================== АДАПТИВНОСТЬ ДЛЯ ПЛАНШЕТОВ И ТЕЛЕФОНОВ ===================== */
-@media (max-width: 900px) {
-  /* Скрываем панель лифта на мобильных */
-  .elevator-panel { display: none; }
-  
-  /* Скрываем лишнее в шапке, показываем бургер */
-  .menu, .nav-cta .btn-primary { display: none; }
-  .burger { display: flex; }
-  
-  /* Сетки */
-  .pgrid, .prod-grid { grid-template-columns: repeat(2, 1fr); }
-  .ind-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  
-  /* Детальная страница */
-  .project-details-grid { grid-template-columns: 1fr; gap: 40px; }
-  .meta-box { position: relative; top: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
-  .meta-item { margin-bottom: 0; padding-bottom: 0; border-bottom: none; border-right: 1px solid rgba(255,255,255,0.05); }
-  .meta-item:last-child { border-right: none; }
-}
-
-@media (max-width: 600px) {
-  .wrap { padding: 0 20px; }
-  
-  /* Hero мобилка */
-  .massive-title { font-size: 40px; }
-  .hero-cta { flex-direction: column; width: 100%; }
-  .btn-massive { width: 100%; justify-content: center; }
-  
-  /* Сетки в 1 колонку */
-  .pgrid, .prod-grid, .ind-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-  
-  /* Услуги */
-  .svc { grid-template-columns: 1fr; gap: 16px; }
-  .snum-bg { font-size: 40px; }
-  .svc .sarrow { display: none; }
-  
-  /* Детальная страница */
-  .meta-box { grid-template-columns: 1fr; }
-  .meta-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 16px; }
-  .pgallery-grid { grid-template-columns: 1fr; }
-}
-
 /* ===================== АДАПТИВНОСТЬ И МОБИЛЬНАЯ ПАНЕЛЬ ===================== */
 @media (max-width: 900px) {
-  /* Прячем логотип в шапке для экономии места */
+  /* Скрываем лишнее в шапке, показываем бургер */
   .menu, .nav-cta .btn-primary { display: none; }
   .burger { display: flex; }
   
@@ -456,7 +411,8 @@ img { max-width: 100%; display: block; }
   .project-details-grid { grid-template-columns: 1fr; gap: 40px; }
   .meta-box { position: relative; top: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
   .meta-item { margin-bottom: 0; padding-bottom: 0; border-bottom: none; border-right: 1px solid rgba(255,255,255,0.05); }
-  
+  .meta-item:last-child { border-right: none; }
+
   /* Нижняя панель лифта fixed — иначе она перекрывает низ футера */
   .footer { padding-bottom: 110px; }
 
