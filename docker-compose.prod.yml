@@ -1,0 +1,70 @@
+# Прод на домашнем сервере за Cloudflare Tunnel (без белого IP и без открытых портов).
+# Этот файл вставляется в OMV UI → Compose → Files (проект Unilift).
+# TLS делает Cloudflare, наружу смотрит только caddy — через общую docker-сеть "edge".
+# Маршрут в туннеле: unilift.site / www.unilift.site → http://unilift-web:80
+services:
+  web:
+    image: ghcr.io/bekturtilepbek/unilift:latest
+    restart: unless-stopped
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             python manage.py collectstatic --noinput &&
+             gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3
+             --timeout 60 --access-logfile - --error-logfile -"
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.prod
+    volumes:
+      - db_data:/app/db
+      - media_data:/app/media
+
+  # Django при DEBUG=False не раздаёт /media/ — это делает caddy,
+  # остальное проксирует в gunicorn.
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - web
+    configs:
+      - source: caddyfile
+        target: /etc/caddy/Caddyfile
+    volumes:
+      - media_data:/srv/media:ro
+    networks:
+      default:
+      edge:
+        # Уникальный алиас: голое имя сервиса "caddy" может столкнуться с другим проектом в edge
+        aliases:
+          - unilift-web
+
+configs:
+  caddyfile:
+    content: |
+      {
+        auto_https off
+        admin off
+        servers {
+          # Доверяем X-Forwarded-Proto от cloudflared, иначе Django уйдёт
+          # в бесконечный редирект на HTTPS
+          trusted_proxies static private_ranges
+        }
+      }
+      :80 {
+        encode gzip
+        handle_path /media/* {
+          root * /srv/media
+          file_server
+        }
+        handle {
+          reverse_proxy web:8000
+        }
+      }
+
+volumes:
+  db_data:
+  media_data:
+
+networks:
+  edge:
+    external: true

@@ -1,8 +1,11 @@
-name: Deploy
+# Собирает прод-образ и пушит в GHCR. На сервер (anton, за Tailscale) отсюда
+# не достать — обновление вручную: OMV UI → Unilift → Pull → Up.
+name: Build image
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: ghcr.io/bekturtilepbek/unilift
@@ -37,27 +40,3 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  deploy:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to server via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            if [ ! -d ~/unilift/.git ]; then
-              git clone https://github.com/BekturTilepbek/unilift.git ~/unilift
-            fi
-            cd ~/unilift
-            git fetch origin main
-            git reset --hard origin/main
-            cat > .env << 'ENVEOF'
-            ${{ secrets.ENV_FILE }}
-            ENVEOF
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            docker compose -f docker-compose.demo.yml pull
-            docker compose -f docker-compose.demo.yml up -d
-            docker image prune -f
