@@ -5,18 +5,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% block title %}{% translate "Unilift — Официальный дистрибьютор Schindler в Кыргызстане" %}{% endblock %}</title>
+<meta name="description" content="{% block meta_description %}{% translate "Поставка, монтаж и сервисное обслуживание лифтов, эскалаторов и подъёмного оборудования Schindler в Кыргызстане." %}{% endblock %}">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
 
-<!-- Подключение Шрифтов (Включая цифровой для дисплея лифта) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Unilift">
+<meta property="og:title" content="{% block og_title %}{% translate "Unilift — Официальный дистрибьютор Schindler в Кыргызстане" %}{% endblock %}">
+<meta property="og:description" content="{% block og_description %}{% translate "Поставка, монтаж и сервисное обслуживание лифтов, эскалаторов и подъёмного оборудования Schindler в Кыргызстане." %}{% endblock %}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:locale" content="{{ LANGUAGE_CODE }}">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+
+<!-- Шрифты: Onest — заголовки, Inter — текст, JetBrains Mono — моно, Share Tech Mono — табло лифта -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <!-- Библиотека анимаций -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-<!-- ГЛАВНЫЙ CSS ФАЙЛ -->
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% block extra_css %}{% endblock %}
 
+<noscript><style>.elevator-doors { display: none; }</style></noscript>
+
+<link rel="alternate" hreflang="ru" href="{{ hreflang_ru }}">
+<link rel="alternate" hreflang="ky" href="{{ hreflang_ky }}">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Unilift",
+  "description": "Официальный дистрибьютор Schindler в Кыргызстане. Поставка, монтаж и сервисное обслуживание лифтов, эскалаторов и подъёмного оборудования.",
+  {% if site.address %}"address": "{{ site.address|escapejs }}",{% endif %}
+  {% if site.phone %}"telephone": "{{ site.phone }}",{% endif %}
+  {% if site.email %}"email": "{{ site.email }}",{% endif %}
+  "url": "{{ request.build_absolute_uri }}"
+}
+</script>
 </head>
 <body class="elevator-theme">
 
@@ -121,19 +149,15 @@
     <span id="floor-display">01</span>
   </div>
   <div class="panel-buttons">
-    <a href="{% url 'core:home' %}#hero" class="floor-btn active" data-floor="01" data-target="hero" title="Главная"><span>1</span></a>
-    <a href="{% url 'core:home' %}#why" class="floor-btn" data-floor="02" data-target="why" title="О компании"><span>2</span></a>
-    <a href="{% url 'core:home' %}#products" class="floor-btn" data-floor="03" data-target="products" title="Оборудование"><span>3</span></a>
-    <a href="{% url 'core:home' %}#services" class="floor-btn" data-floor="04" data-target="services" title="Услуги"><span>4</span></a>
-    <a href="{% url 'core:home' %}#industries" class="floor-btn" data-floor="05" data-target="industries" title="Отрасли"><span>5</span></a>
-    <a href="{% url 'core:home' %}#projects" class="floor-btn" data-floor="06" data-target="projects" title="Проекты"><span>6</span></a>
-    <a href="{% url 'core:home' %}#contacts" class="floor-btn" data-floor="07" data-target="contacts" title="Контакты"><span>7</span></a>
+    <a href="{% url 'core:home' %}#hero" class="floor-btn active" data-floor="01" data-target="hero" title="{% translate 'Главная' %}" aria-label="{% translate 'Главная' %}"><span>1</span></a>
+    <a href="{% url 'core:home' %}#why" class="floor-btn" data-floor="02" data-target="why" title="{% translate 'О компании' %}" aria-label="{% translate 'О компании' %}"><span>2</span></a>
+    <a href="{% url 'core:home' %}#products" class="floor-btn" data-floor="03" data-target="products" title="{% translate 'Оборудование' %}" aria-label="{% translate 'Оборудование' %}"><span>3</span></a>
+    <a href="{% url 'core:home' %}#services" class="floor-btn" data-floor="04" data-target="services" title="{% translate 'Услуги' %}" aria-label="{% translate 'Услуги' %}"><span>4</span></a>
+    <a href="{% url 'core:home' %}#industries" class="floor-btn" data-floor="05" data-target="industries" title="{% translate 'Отрасли' %}" aria-label="{% translate 'Отрасли' %}"><span>5</span></a>
+    <a href="{% url 'core:home' %}#projects" class="floor-btn" data-floor="06" data-target="projects" title="{% translate 'Проекты' %}" aria-label="{% translate 'Проекты' %}"><span>6</span></a>
+    <a href="{% url 'core:home' %}#contacts" class="floor-btn" data-floor="07" data-target="contacts" title="{% translate 'Контакты' %}" aria-label="{% translate 'Контакты' %}"><span>7</span></a>
   </div>
 </nav>
-
-
-
-
 
 {% block header %}
   {% include "partials/header.html" %}
@@ -151,7 +175,13 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="{% static 'js/elevator.js' %}"></script>
 <script>
-  AOS.init({ duration: 1000, once: true, offset: 50 });
+  // aos.css прячет [data-aos] до инициализации: если CDN с aos.js не загрузился,
+  // снимаем атрибуты, иначе весь контент останется невидимым
+  if (window.AOS) {
+    AOS.init({ duration: 1000, once: true, offset: 50 });
+  } else {
+    document.querySelectorAll("[data-aos]").forEach(function (el) { el.removeAttribute("data-aos"); });
+  }
 </script>
 {% block extra_js %}{% endblock %}
 </body>

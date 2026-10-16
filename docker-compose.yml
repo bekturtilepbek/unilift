@@ -8,7 +8,10 @@ services:
              python manage.py runserver 0.0.0.0:8000"
     restart: unless-stopped
     env_file:
-      - .env
+      - path: .env
+        required: false     # для локального запуска .env не обязателен
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.dev
     volumes:
       - .:/app
       - media_data:/app/media

@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 {% load i18n %}
 
@@ -32,8 +31,10 @@
 
 <!-- 2. ИНФОРМАЦИЯ И ОПИСАНИЕ -->
 <section class="project-details-section">
-  <div class="wrap project-details-grid">
-    
+  {% with has_meta=project.city|default:project.year|default:project.equipment %}
+  <div class="wrap project-details-grid{% if not has_meta %} project-details-grid--single{% endif %}">
+
+    {% if has_meta %}
     <!-- Боковая панель с мета-данными -->
     <aside class="project-sidebar" data-aos="fade-up" data-aos-delay="300">
       <div class="meta-box">
@@ -59,6 +60,7 @@
         {% endif %}
       </div>
     </aside>
+    {% endif %}
 
     <!-- Основной текст описания -->
     <div class="project-main-content" data-aos="fade-up" data-aos-delay="400">
@@ -72,6 +74,7 @@
     </div>
 
   </div>
+  {% endwith %}
 </section>
 
 <!-- 3. ГАЛЕРЕЯ ПРОЕКТА -->

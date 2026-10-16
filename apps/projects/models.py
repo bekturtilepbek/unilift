@@ -5,10 +5,34 @@ from django.utils.text import slugify
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill, ResizeToFit
 
+# slugify(allow_unicode=False) просто выкидывает кириллицу: из «ЦУМ Бишкек»
+# получается пустая строка, а пустой slug ломает reverse() и unique.
+# Поэтому сначала транслитерируем (ru + кыргызские Ң, Ө, Ү).
+_TRANSLIT = str.maketrans({
+    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e", "ж": "zh",
+    "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "ң": "ng",
+    "о": "o", "ө": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u", "ү": "u",
+    "ф": "f", "х": "h", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sch", "ъ": "", "ы": "y",
+    "ь": "", "э": "e", "ю": "yu", "я": "ya",
+})
+
+
+def unique_slug(instance, source, fallback):
+    """Латинский slug из source, уникальный в пределах модели instance."""
+    base = slugify(source.lower().translate(_TRANSLIT)) or fallback
+    max_length = instance._meta.get_field("slug").max_length
+    base = base[: max_length - 5].strip("-")
+    model = type(instance)
+    slug, counter = base, 1
+    while model.objects.filter(slug=slug).exclude(pk=instance.pk).exists():
+        slug = f"{base}-{counter}"
+        counter += 1
+    return slug
+
 
 class ProjectCategory(models.Model):
     name = models.CharField(_("Название"), max_length=100)
-    slug = models.SlugField(_("Slug"), max_length=110, unique=True)
+    slug = models.SlugField(_("Slug"), max_length=110, unique=True, blank=True, help_text=_("Оставьте пустым — заполнится автоматически"))
     order = models.PositiveIntegerField(_("Порядок"), default=0)
 
     class Meta:
@@ -21,25 +45,13 @@ class ProjectCategory(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name, allow_unicode=False)
+            self.slug = unique_slug(self, self.name, "category")
         super().save(*args, **kwargs)
 
 
-# class Project(models.Model):
-#     title = models.CharField(_("Название проекта"), max_length=200)
-#     slug = models.SlugField(_("Slug"), max_length=220, unique=True, help_text=_("Используется в адресе страницы, например: tsum-bishkek"))
-#     category = models.ForeignKey(
-#         ProjectCategory,
-#         verbose_name=_("Категория"),
-#         related_name="projects",
-#         on_delete=models.SET_NULL,
-#         null=True,
-#         blank=True,
-#     )
-
 class Project(models.Model):
     title = models.CharField(_("Название проекта"), max_length=200)
-    slug = models.SlugField(_("Slug"), max_length=220, unique=True, help_text=_("Используется в адресе страницы"))
+    slug = models.SlugField(_("Slug"), max_length=220, unique=True, blank=True, help_text=_("Используется в адресе страницы. Оставьте пустым — заполнится автоматически"))
     category = models.ForeignKey(
         ProjectCategory,
         verbose_name=_("Категория"),
@@ -49,17 +61,6 @@ class Project(models.Model):
         blank=True,
     )
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            base_slug = slugify(self.title, allow_unicode=True) or "project"
-            slug = base_slug
-            counter = 1
-            # Проверяем, существует ли уже такой slug в базе
-            while Project.objects.filter(slug=slug).exclude(pk=self.pk).exists():
-                slug = f"{base_slug}-{counter}"
-                counter += 1
-            self.slug = slug
-        super().save(*args, **kwargs)
 
     summary = models.CharField(_("Краткое описание"), max_length=200, help_text=_("Показывается в карточке на лендинге и в каталоге, до 200 символов"))
     description = models.TextField(_("Полное описание"), blank=True, help_text=_("Показывается на детальной странице проекта"))
@@ -91,7 +92,7 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title, allow_unicode=False)
+            self.slug = unique_slug(self, self.title, "project")
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

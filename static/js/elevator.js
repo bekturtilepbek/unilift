@@ -1,203 +1,3 @@
-// // document.addEventListener("DOMContentLoaded", () => {
-    
-// //     const doors = document.getElementById("elevator-doors");
-// //     const floorDisplay = document.getElementById("floor-display");
-// //     const dirArrow = document.getElementById("dir-arrow");
-// //     const floorBtns = document.querySelectorAll(".floor-btn");
-    
-// //     // Проверяем, на главной ли мы странице (есть ли блок hero)
-// //     const isHomePage = document.getElementById("hero") !== null;
-
-// //     // 1. АНИМАЦИЯ ОТКРЫТИЯ ДВЕРЕЙ ПРИ ЗАГРУЗКЕ САЙТА
-// //     if (doors) {
-// //         setTimeout(() => {
-// //             doors.classList.add("open");
-// //         }, 300);
-// //     }
-
-// //     // 2. ЛОГИКА НАЖАТИЯ НА КНОПКИ ЛИФТА (С ЗАКРЫТИЕМ ДВЕРЕЙ)
-// //     floorBtns.forEach(btn => {
-// //         btn.addEventListener("click", function(e) {
-// //             e.preventDefault(); // Останавливаем стандартный переход
-            
-// //             const targetId = this.getAttribute("data-target");
-// //             const targetSec = document.getElementById(targetId);
-// //             const href = this.getAttribute("href");
-
-// //             // Закрываем двери лифта
-// //             if (doors) doors.classList.remove("open");
-
-// //             // Если мы УЖЕ на главной странице
-// //             if (isHomePage && targetSec) {
-// //                 // Ждем 1.2 секунды (пока закроются двери)
-// //                 setTimeout(() => {
-// //                     // Перемещаемся на нужный блок без плавной прокрутки (эффект телепортации лифта)
-// //                     window.scrollTo({ top: targetSec.offsetTop, behavior: "instant" });
-                    
-// //                     // Обновляем дисплей
-// //                     if (floorDisplay) floorDisplay.textContent = btn.getAttribute("data-floor");
-// //                     floorBtns.forEach(b => b.classList.remove("active"));
-// //                     btn.classList.add("active");
-
-// //                     // Снова открываем двери
-// //                     setTimeout(() => { doors.classList.add("open"); }, 200);
-// //                 }, 1200);
-// //             } 
-// //             // Если мы НА ДРУГОЙ СТРАНИЦЕ (например, внутри проекта)
-// //             else {
-// //                 // Ждем закрытия дверей и переходим на главную по ссылке
-// //                 setTimeout(() => {
-// //                     window.location.href = href;
-// //                 }, 1200);
-// //             }
-// //         });
-// //     });
-
-// //     // 3. ОТСЛЕЖИВАНИЕ ОБЫЧНОГО СКРОЛЛА (ТОЛЬКО ДЛЯ ГЛАВНОЙ)
-// //     if (isHomePage) {
-// //         let lastScrollY = window.scrollY;
-        
-// //         // Собираем секции
-// //         const sections = [];
-// //         floorBtns.forEach(btn => {
-// //             const sec = document.getElementById(btn.getAttribute("data-target"));
-// //             if (sec) sections.push(sec);
-// //         });
-
-// //         window.addEventListener("scroll", () => {
-// //             let currentScroll = window.scrollY;
-            
-// //             // Мигание стрелочки направления
-// //             if (currentScroll > lastScrollY) {
-// //                 dirArrow.textContent = "▼";
-// //             } else if (currentScroll < lastScrollY) {
-// //                 dirArrow.textContent = "▲";
-// //             }
-// //             lastScrollY = currentScroll;
-
-// //             // Определяем текущий этаж
-// //             let currentSectionId = "";
-// //             sections.forEach(sec => {
-// //                 const secTop = sec.offsetTop - (window.innerHeight / 3); 
-// //                 if (currentScroll >= secTop) {
-// //                     currentSectionId = sec.getAttribute("id");
-// //                 }
-// //             });
-
-// //             // Обновляем активную кнопку и табло
-// //             if (currentSectionId) {
-// //                 floorBtns.forEach(btn => {
-// //                     btn.classList.remove("active");
-// //                     if (btn.getAttribute("data-target") === currentSectionId) {
-// //                         btn.classList.add("active");
-// //                         if (floorDisplay) {
-// //                             floorDisplay.textContent = btn.getAttribute("data-floor");
-// //                         }
-// //                     }
-// //                 });
-// //             }
-// //         });
-// //     }
-// // });
-
-// document.addEventListener("DOMContentLoaded", () => {
-    
-//     const doors = document.getElementById("elevator-doors");
-//     const floorDisplay = document.getElementById("floor-display");
-//     const dirArrow = document.getElementById("dir-arrow");
-//     const floorBtns = document.querySelectorAll(".floor-btn");
-    
-//     // Проверяем, на главной ли мы странице
-//     const isHomePage = document.getElementById("hero") !== null;
-
-//     // 1. ОТКРЫТИЕ ДВЕРЕЙ ПРИ ЗАГРУЗКЕ
-//     if (doors) {
-//         setTimeout(() => {
-//             doors.classList.add("open");
-//         }, 300);
-//     }
-
-//     // 2. ЛОГИКА НАЖАТИЯ КНОПОК
-//     floorBtns.forEach(btn => {
-//         btn.addEventListener("click", function(e) {
-//             e.preventDefault(); 
-            
-//             const targetId = this.getAttribute("data-target");
-//             const targetSec = document.getElementById(targetId);
-//             const href = this.getAttribute("href");
-
-//             // Закрываем двери лифта
-//             if (doors) doors.classList.remove("open");
-
-//             // Если мы УЖЕ на главной странице
-//             if (isHomePage && targetSec) {
-//                 // Ждем РОВНО 1.5 СЕКУНДЫ (пока полностью закроются двери)
-//                 setTimeout(() => {
-//                     // Перемещаемся на нужный блок мгновенно
-//                     window.scrollTo({ top: targetSec.offsetTop, behavior: "instant" });
-                    
-//                     // Обновляем дисплей
-//                     if (floorDisplay) floorDisplay.textContent = btn.getAttribute("data-floor");
-//                     floorBtns.forEach(b => b.classList.remove("active"));
-//                     btn.classList.add("active");
-
-//                     // Снова открываем двери (с крошечной задержкой после скролла)
-//                     setTimeout(() => { doors.classList.add("open"); }, 100);
-//                 }, 1500); // Исправлено: 1500мс вместо 1200мс
-//             } 
-//             // Если мы НА ДРУГОЙ СТРАНИЦЕ
-//             else {
-//                 // Ждем полного закрытия дверей и переходим по ссылке
-//                 setTimeout(() => {
-//                     window.location.href = href;
-//                 }, 1500); // Исправлено: 1500мс
-//             }
-//         });
-//     });
-
-//     // 3. ОТСЛЕЖИВАНИЕ СКРОЛЛА (ТОЛЬКО НА ГЛАВНОЙ)
-//     if (isHomePage) {
-//         let lastScrollY = window.scrollY;
-        
-//         const sections = [];
-//         floorBtns.forEach(btn => {
-//             const sec = document.getElementById(btn.getAttribute("data-target"));
-//             if (sec) sections.push(sec);
-//         });
-
-//         window.addEventListener("scroll", () => {
-//             let currentScroll = window.scrollY;
-            
-//             if (currentScroll > lastScrollY) {
-//                 dirArrow.textContent = "▼";
-//             } else if (currentScroll < lastScrollY) {
-//                 dirArrow.textContent = "▲";
-//             }
-//             lastScrollY = currentScroll;
-
-//             let currentSectionId = "";
-//             sections.forEach(sec => {
-//                 const secTop = sec.offsetTop - (window.innerHeight / 3); 
-//                 if (currentScroll >= secTop) {
-//                     currentSectionId = sec.getAttribute("id");
-//                 }
-//             });
-
-//             if (currentSectionId) {
-//                 floorBtns.forEach(btn => {
-//                     btn.classList.remove("active");
-//                     if (btn.getAttribute("data-target") === currentSectionId) {
-//                         btn.classList.add("active");
-//                         if (floorDisplay) {
-//                             floorDisplay.textContent = btn.getAttribute("data-floor");
-//                         }
-//                     }
-//                 });
-//             }
-//         });
-//     }
-// });
-
 document.addEventListener("DOMContentLoaded", () => {
     
     // --- 1. АНИМАЦИЯ ОТКРЫТИЯ ДВЕРЕЙ ПРИ ЗАГРУЗКЕ ---
@@ -211,10 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const dirArrow = document.getElementById("dir-arrow");
     const floorBtns = document.querySelectorAll(".floor-btn");
     const isHomePage = document.getElementById("hero") !== null;
+    // Без анимации дверей: пользователь просил меньше движения
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const doorDelay = reduceMotion || !doors ? 0 : 1500;
 
     floorBtns.forEach(btn => {
         btn.addEventListener("click", function(e) {
-            e.preventDefault(); 
+            // Ctrl/Cmd/Shift-клик и средняя кнопка — открыть в новой вкладке как обычно
+            if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+            e.preventDefault();
             const targetId = this.getAttribute("data-target");
             const targetSec = document.getElementById(targetId);
             const href = this.getAttribute("href");
@@ -227,10 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (floorDisplay) floorDisplay.textContent = btn.getAttribute("data-floor");
                     floorBtns.forEach(b => b.classList.remove("active"));
                     btn.classList.add("active");
-                    setTimeout(() => { doors.classList.add("open"); }, 100);
-                }, 1500);
+                    if (doors) setTimeout(() => { doors.classList.add("open"); }, 100);
+                }, doorDelay);
             } else {
-                setTimeout(() => { window.location.href = href; }, 1500);
+                setTimeout(() => { window.location.href = href; }, doorDelay);
             }
         });
     });
@@ -242,8 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener("scroll", () => {
             let currentScroll = window.scrollY;
             
-            if (currentScroll > lastScrollY) dirArrow.textContent = "▼";
-            else if (currentScroll < lastScrollY) dirArrow.textContent = "▲";
+            if (dirArrow && currentScroll > lastScrollY) dirArrow.textContent = "▼";
+            else if (dirArrow && currentScroll < lastScrollY) dirArrow.textContent = "▲";
             lastScrollY = currentScroll;
 
             let currentSectionId = "";
@@ -266,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 });
             }
-        });
+        }, { passive: true });
     }
 
     // --- 3. ПОДСВЕТКА УСЛУГ (SERVICES) ПРИ СКРОЛЛЕ НА МОБИЛЬНЫХ ---
@@ -296,21 +101,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const mobileMenu = document.getElementById("mobileMenu");
     
     if (burger && mobileMenu) {
-        burger.addEventListener("click", () => {
-            burger.classList.toggle("active");
-            mobileMenu.classList.toggle("open");
+        const setMenuOpen = (open) => {
+            burger.classList.toggle("active", open);
+            mobileMenu.classList.toggle("open", open);
+            burger.setAttribute("aria-expanded", String(open));
             // Блокируем скролл фона, когда меню открыто
-            document.body.style.overflow = mobileMenu.classList.contains("open") ? "hidden" : "";
-        });
+            document.body.style.overflow = open ? "hidden" : "";
+        };
 
+        burger.addEventListener("click", () => setMenuOpen(!mobileMenu.classList.contains("open")));
         // Закрываем меню при клике на ссылку внутри него
-        const mobileLinks = mobileMenu.querySelectorAll("a");
-        mobileLinks.forEach(link => {
-            link.addEventListener("click", () => {
-                burger.classList.remove("active");
-                mobileMenu.classList.remove("open");
-                document.body.style.overflow = "";
-            });
-        });
+        mobileMenu.querySelectorAll("a").forEach(link => link.addEventListener("click", () => setMenuOpen(false)));
+        // ...и при повороте/зуме, иначе оно виснет поверх уже десктопной раскладки
+        window.addEventListener("resize", () => { if (window.innerWidth > 900) setMenuOpen(false); });
     }
 });

@@ -10,7 +10,7 @@ from .models import Project, ProjectCategory, ProjectImage
 @admin.register(ProjectCategory)
 class ProjectCategoryAdmin(TabbedTranslationAdmin, ModelAdmin):
     list_display = ("name", "order")
-    prepopulated_fields = {'slug': ('name',)}
+    prepopulated_fields = {"slug": ("name",)}
     list_editable = ("order",)
     fields = ("name", "slug", "order")
     search_fields = ("name",)
@@ -34,12 +34,8 @@ class ProjectImageInline(TabularInline):
 @admin.register(Project)
 class ProjectAdmin(TabbedTranslationAdmin, ModelAdmin):
     list_display = ("cover_preview", "title", "city", "year", "is_published", "is_featured", "order")
-    
-    # Примечание: так как вы используете modeltranslation, 
-    # возможно придется использовать 'title_ru' (или ваш основной язык), 
-    # если JS-автозаполнение не сработает от 'title'.
-    prepopulated_fields = {'slug': ('title',)} 
-    
+    # modeltranslation сам подменяет 'title' на поле основного языка (title_ru)
+    prepopulated_fields = {"slug": ("title",)}
     list_editable = ("is_published", "is_featured", "order")
     list_filter = ("is_published", "is_featured", "category", "city")
     search_fields = ("title", "summary", "city", "client_name")
@@ -47,7 +43,6 @@ class ProjectAdmin(TabbedTranslationAdmin, ModelAdmin):
 
     fieldsets = (
         (_("Основное"), {
-            # ДОБАВЛЕНО: "slug" сразу после "title"
             "fields": ("title", "slug", "category", "summary", "cover"),
         }),
         (_("Подробности"), {
