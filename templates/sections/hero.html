@@ -1,4 +1,40 @@
 {% load i18n static %}
+<section class="hero elevator-floor" id="hero">
+  <div class="hero-video-wrapper">
+    <video class="hero-video" autoplay muted loop playsinline poster="{% static 'img/hero-poster.jpg' %}">
+      <source src="{% static 'video/hero-elevator.mp4' %}" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-shaft-overlay"></div>
+
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="status-badge" data-aos="fade-down" data-aos-delay="1000">
+        <span class="blink-dot"></span> {% translate "Официальный дистрибьютор Schindler в Кыргызстане" %}
+      </div>
+      
+      <h1 class="massive-title" data-aos="fade-up" data-aos-delay="1200">
+        {% translate "ВЕРТИКАЛЬНОЕ" %} <br>
+        <span class="text-stroke">{% translate "ИЗМЕРЕНИЕ" %}</span><br>
+        <span class="accent-glow">{% translate "БЕЗУПРЕЧНОСТИ" %}</span>
+      </h1>
+      
+      <p class="lead" data-aos="fade-up" data-aos-delay="1400">
+        {% translate "Официальный дистрибьютор Schindler в Кыргызстане. Мы не просто ставим лифты — мы задаем новый уровень движения для ваших проектов." %}
+      </p>
+      
+      <div class="hero-cta" data-aos="fade-up" data-aos-delay="1600">
+        <a href="#contacts" class="btn-massive">
+          <span class="btn-bg"></span>
+          <span class="btn-text">{% translate "ВЫЗВАТЬ ЛИФТ" %}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- {% load i18n static %}
 <section class="hero" id="hero">
   <video
     class="hero-video"
@@ -24,4 +60,4 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->

@@ -5,55 +5,141 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% block title %}{% translate "Unilift — Официальный дистрибьютор Schindler в Кыргызстане" %}{% endblock %}</title>
-<meta name="description" content="{% block meta_description %}{% translate "Поставка, монтаж и сервисное обслуживание лифтов, эскалаторов и подъёмного оборудования Schindler в Кыргызстане." %}{% endblock %}">
-<link rel="canonical" href="{{ request.build_absolute_uri }}">
 
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Unilift">
-<meta property="og:title" content="{% block og_title %}{% translate "Unilift — Официальный дистрибьютор Schindler в Кыргызстане" %}{% endblock %}">
-<meta property="og:description" content="{% block og_description %}{% translate "Поставка, монтаж и сервисное обслуживание лифтов, эскалаторов и подъёмного оборудования Schindler в Кыргызстане." %}{% endblock %}">
-<meta property="og:url" content="{{ request.build_absolute_uri }}">
-<meta property="og:locale" content="{{ LANGUAGE_CODE }}">
-<meta name="twitter:card" content="summary_large_image">
-
-<link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
-
+<!-- Подключение Шрифтов (Включая цифровой для дисплея лифта) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<!-- Библиотека анимаций -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-<link rel="stylesheet" href="{% static 'css/tokens.css' %}">
-<link rel="stylesheet" href="{% static 'css/base.css' %}">
-<link rel="stylesheet" href="{% static 'css/components.css' %}">
-<link rel="stylesheet" href="{% static 'css/header.css' %}">
-<link rel="stylesheet" href="{% static 'css/footer.css' %}">
-<link rel="stylesheet" href="{% static 'css/sections.css' %}">
-<link rel="stylesheet" href="{% static 'css/projects.css' %}">
+<!-- ГЛАВНЫЙ CSS ФАЙЛ -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% block extra_css %}{% endblock %}
 
-<link rel="alternate" hreflang="ru" href="{{ hreflang_ru }}">
-<link rel="alternate" hreflang="ky" href="{{ hreflang_ky }}">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Unilift",
-  "description": "Официальный дистрибьютор Schindler в Кыргызстане. Поставка, монтаж и сервисное обслуживание лифтов, эскалаторов и подъёмного оборудования.",
-  {% if site.address %}"address": "{{ site.address|escapejs }}",{% endif %}
-  {% if site.phone %}"telephone": "{{ site.phone }}",{% endif %}
-  {% if site.email %}"email": "{{ site.email }}",{% endif %}
-  "url": "{{ request.build_absolute_uri }}"
-}
-</script>
 </head>
-<body>
+<body class="elevator-theme">
+
+  <!-- === ФОНОВАЯ АНИМАЦИЯ: ИДЕАЛЬНАЯ КИНЕМАТИКА (V2.0) === -->
+<div class="bg-engineering-mechanism">
+  <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    
+    <!-- 0. ТРОСЫ И РЕМНИ -->
+    <g class="mech-cables">
+      <!-- Вертикальные тросы -->
+      <line x1="1250" y1="-200" x2="1250" y2="1280" />
+      <line x1="1320" y1="-200" x2="1320" y2="1280" />
+      
+      <!-- Диагональный ремень от Узла 2 к Узлу 3 -->
+      <line x1="750" y1="500" x2="1750" y2="150" stroke-dasharray="8 8" />
+      <line x1="1000" y1="950" x2="1900" y2="400" />
+
+      <!-- Горизонтальная стяжка Узел 4 - Узел 2 -->
+      <line x1="200" y1="150" x2="750" y2="500" />
+    </g>
+
+    <!-- УЗЕЛ 1: Главный привод (Самый левый нижний угол) -->
+    <!-- Центр: (0, 1080). Радиус: 500. Зубьев: 100 -->
+    <g transform="translate(0, 1080)">
+      <g class="mech-spin-cw-slow">
+        <!-- Внешний зубчатый венец -->
+        <circle cx="0" cy="0" r="500" class="mech-teeth" stroke-dasharray="14 17.41" stroke-width="20" />
+        <circle cx="0" cy="0" r="475" class="mech-line" stroke-width="2" />
+        <circle cx="0" cy="0" r="150" class="mech-line" stroke-width="4" />
+        <path d="M-475 0 h950 M0 -475 v950 M-335 -335 L335 335 M-335 335 L335 -335" class="mech-line" stroke-width="1.5" />
+      </g>
+      <path d="M -30 0 h 60 M 0 -30 v 60" class="mech-static-axis" />
+    </g>
+
+    <!-- УЗЕЛ 2: Промежуточная шестерня (Идеально входит в Узел 1) -->
+    <!-- Центр: (750, 800). Радиус: 300. Зубьев: 60. (Расстояние ровно 800px = 500+300) -->
+    <g transform="translate(750, 800)">
+      <g class="mech-spin-ccw-medium">
+        <circle cx="0" cy="0" r="300" class="mech-teeth" stroke-dasharray="14 17.41" stroke-width="20" />
+        <circle cx="0" cy="0" r="275" class="mech-line" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="180" class="mech-accent" stroke-width="3" stroke-dasharray="50 30" />
+        <circle cx="0" cy="0" r="80" class="mech-line" stroke-width="2" />
+        <path d="M-275 0 h550 M0 -275 v550 M-194 -194 L194 194" class="mech-line" stroke-width="1.5" />
+      </g>
+      <path d="M -25 0 h 50 M 0 -25 v 50" class="mech-static-axis" />
+    </g>
+
+    <!-- УЗЕЛ 3: Отклоняющий шкив (Правый верхний край) -->
+    <!-- Центр: (1800, 150). Радиус: 200. Зубьев: 40 -->
+    <g transform="translate(1800, 150)">
+      <g class="mech-spin-cw-fast">
+        <circle cx="0" cy="0" r="200" class="mech-teeth" stroke-dasharray="14 17.41" stroke-width="18" />
+        <circle cx="0" cy="0" r="175" class="mech-line" stroke-width="2" />
+        <circle cx="0" cy="0" r="60" class="mech-line" stroke-width="1.5" />
+        <path d="M-175 0 h350 M0 -175 v350" class="mech-line" stroke-width="1.5" />
+        <circle cx="100" cy="0" r="10" class="mech-line" /><circle cx="-100" cy="0" r="10" class="mech-line" />
+        <circle cx="0" cy="100" r="10" class="mech-line" /><circle cx="0" cy="-100" r="10" class="mech-line" />
+      </g>
+      <path d="M -20 0 h 40 M 0 -20 v 40" class="mech-static-axis" />
+    </g>
+
+    <!-- УЗЕЛ 4: Система натяжителя (Левый верхний край) -->
+    <!-- Центр: (200, 150). Радиус: 100. Зубьев: 20 -->
+    <g transform="translate(200, 150)">
+      <g class="mech-spin-ccw-fast">
+        <circle cx="0" cy="0" r="100" class="mech-teeth" stroke-dasharray="14 17.41" stroke-width="14" />
+        <circle cx="0" cy="0" r="80" class="mech-line" stroke-width="1" />
+        <path d="M-80 -80 L80 80 M-80 80 L80 -80" class="mech-line" stroke-width="2" />
+      </g>
+      <path d="M -15 0 h 30 M 0 -15 v 30" class="mech-static-axis" />
+      <!-- Инженерные пометки -->
+      <text x="120" y="5" font-family="var(--font-mono)" font-size="11" fill="rgba(255,255,255,0.06)" letter-spacing="2">TENSION_ROLL_X4</text>
+    </g>
+
+    <!-- Декоративные метки и прицелы -->
+    <g class="mech-static">
+      <!-- Текст интерфейса -->
+      <text x="1600" y="480" font-family="var(--font-mono)" font-size="14" fill="rgba(255,255,255,0.05)" letter-spacing="4">SCHINDLER_KINETICS</text>
+      <text x="1600" y="500" font-family="var(--font-mono)" font-size="12" fill="rgba(255,255,255,0.05)" letter-spacing="2">SYS_LOAD: OPTIMAL // 60HZ</text>
+      
+      <!-- Координатные сетки (Прицелы) -->
+      <path d="M 730 800 h 10 M 760 800 h 10" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+      <path d="M 1780 150 h 10 M 1810 150 h 10" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+    </g>
+  </svg>
+</div>
+<!-- === КОНЕЦ ФОНОВОЙ АНИМАЦИИ === -->
+
+<!-- Анимация дверей лифта -->
+<div id="elevator-doors" class="elevator-doors">
+  <div class="door door-left"></div>
+  <div class="door door-right"></div>
+</div>
+
+<!-- Иллюзия движения по шахте -->
+<div class="elevator-shaft-lines"></div>
+
+<!-- Панель лифта сбоку -->
+<nav class="elevator-panel">
+  <div class="panel-screen">
+    <span class="arrow-dir" id="dir-arrow">▲</span>
+    <span id="floor-display">01</span>
+  </div>
+  <div class="panel-buttons">
+    <a href="{% url 'core:home' %}#hero" class="floor-btn active" data-floor="01" data-target="hero" title="Главная"><span>1</span></a>
+    <a href="{% url 'core:home' %}#why" class="floor-btn" data-floor="02" data-target="why" title="О компании"><span>2</span></a>
+    <a href="{% url 'core:home' %}#products" class="floor-btn" data-floor="03" data-target="products" title="Оборудование"><span>3</span></a>
+    <a href="{% url 'core:home' %}#services" class="floor-btn" data-floor="04" data-target="services" title="Услуги"><span>4</span></a>
+    <a href="{% url 'core:home' %}#industries" class="floor-btn" data-floor="05" data-target="industries" title="Отрасли"><span>5</span></a>
+    <a href="{% url 'core:home' %}#projects" class="floor-btn" data-floor="06" data-target="projects" title="Проекты"><span>6</span></a>
+    <a href="{% url 'core:home' %}#contacts" class="floor-btn" data-floor="07" data-target="contacts" title="Контакты"><span>7</span></a>
+  </div>
+</nav>
+
+
+
+
 
 {% block header %}
   {% include "partials/header.html" %}
 {% endblock %}
 
-<main>
+<main id="main-scroll">
   {% block content %}{% endblock %}
 </main>
 
@@ -61,7 +147,12 @@
   {% include "partials/footer.html" %}
 {% endblock %}
 
-<script src="{% static 'js/nav.js' %}"></script>
+<!-- Скрипты -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{% static 'js/elevator.js' %}"></script>
+<script>
+  AOS.init({ duration: 1000, once: true, offset: 50 });
+</script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>

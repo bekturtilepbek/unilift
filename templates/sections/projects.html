@@ -2,7 +2,7 @@
 {% if featured_projects %}
 <section class="projects-section" id="projects">
   <div class="wrap">
-    <h2>{% translate "Реализованные проекты" %}</h2>
+    <h2 class="section-title" data-aos="fade-up">{% translate "Реализованные проекты" %}</h2>
 
     <div class="pgrid">
       {% for project in featured_projects %}
@@ -10,7 +10,8 @@
       {% endfor %}
     </div>
 
-    <div class="projects-more">
+    <!-- Кнопка вынесена из сетки и отцентрирована -->
+    <div class="projects-more" data-aos="fade-up">
       <a href="{% url 'projects:list' %}" class="btn btn-ghost">{% translate "Все проекты" %}</a>
     </div>
   </div>

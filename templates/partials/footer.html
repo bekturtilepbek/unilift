@@ -1,4 +1,4 @@
-{% load static i18n %}
+<!-- {% load static i18n %}
 <footer>
   <div class="wrap">
     <div class="footer-grid">
@@ -28,6 +28,42 @@
     </div>
 
     <div class="footer-bottom">
+      <span class="mono">© {% now "Y" %} {% translate "Unilift" %}</span>
+      <span>{% translate "Официальный дистрибьютор Schindler в Кыргызстане" %}</span>
+    </div>
+  </div>
+</footer> -->
+
+{% load static i18n %}
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand" data-aos="fade-up" data-aos-delay="100">
+        <a href="{% url 'core:home' %}" class="brand">
+          <img src="{% static 'img/logo-unilift-footer.png' %}" alt="Unilift">
+        </a>
+        <p>{% translate "Поставка, монтаж и сервисное обслуживание лифтов, эскалаторов и подъёмного оборудования." %}</p>
+      </div>
+
+      <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
+        <h4>{% translate "Навигация" %}</h4>
+          <a href="{% url 'core:home' %}#why">{% translate "О компании" %}</a>
+          <a href="{% url 'core:home' %}#products">{% translate "Оборудование" %}</a>
+          <a href="{% url 'core:home' %}#services">{% translate "Услуги" %}</a>
+          <a href="{% url 'core:home' %}#industries">{% translate "Отрасли" %}</a>
+          <a href="{% url 'projects:list' %}">{% translate "Проекты" %}</a>
+          <a href="{% url 'core:home' %}#contacts">{% translate "Контакты" %}</a>
+      </div>
+
+      <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
+        <h4>{% translate "Связаться" %}</h4>
+        {% if site.whatsapp %}<a href="{{ site.whatsapp }}" target="_blank" rel="noopener" class="hover-accent">WhatsApp</a>{% endif %}
+        {% if site.telegram %}<a href="{{ site.telegram }}" target="_blank" rel="noopener" class="hover-accent">Telegram</a>{% endif %}
+        <a href="{% url 'core:home' %}#contacts" class="hover-accent">{% translate "Все контакты" %} &rarr;</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom" data-aos="fade-up" data-aos-delay="400">
       <span class="mono">© {% now "Y" %} {% translate "Unilift" %}</span>
       <span>{% translate "Официальный дистрибьютор Schindler в Кыргызстане" %}</span>
     </div>

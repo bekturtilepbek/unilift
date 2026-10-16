@@ -25,9 +25,21 @@ class ProjectCategory(models.Model):
         super().save(*args, **kwargs)
 
 
+# class Project(models.Model):
+#     title = models.CharField(_("Название проекта"), max_length=200)
+#     slug = models.SlugField(_("Slug"), max_length=220, unique=True, help_text=_("Используется в адресе страницы, например: tsum-bishkek"))
+#     category = models.ForeignKey(
+#         ProjectCategory,
+#         verbose_name=_("Категория"),
+#         related_name="projects",
+#         on_delete=models.SET_NULL,
+#         null=True,
+#         blank=True,
+#     )
+
 class Project(models.Model):
     title = models.CharField(_("Название проекта"), max_length=200)
-    slug = models.SlugField(_("Slug"), max_length=220, unique=True, help_text=_("Используется в адресе страницы, например: tsum-bishkek"))
+    slug = models.SlugField(_("Slug"), max_length=220, unique=True, help_text=_("Используется в адресе страницы"))
     category = models.ForeignKey(
         ProjectCategory,
         verbose_name=_("Категория"),
@@ -36,6 +48,18 @@ class Project(models.Model):
         null=True,
         blank=True,
     )
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.title, allow_unicode=True) or "project"
+            slug = base_slug
+            counter = 1
+            # Проверяем, существует ли уже такой slug в базе
+            while Project.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     summary = models.CharField(_("Краткое описание"), max_length=200, help_text=_("Показывается в карточке на лендинге и в каталоге, до 200 символов"))
     description = models.TextField(_("Полное описание"), blank=True, help_text=_("Показывается на детальной странице проекта"))

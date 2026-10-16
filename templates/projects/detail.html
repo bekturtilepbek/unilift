@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% load i18n %}
 
@@ -7,39 +8,93 @@
 {% block og_description %}{{ project.summary }}{% endblock %}
 
 {% block content %}
-<section class="project-detail">
-  <div class="wrap">
-    <a href="{% url 'projects:list' %}" class="back-link">← {% translate "Все проекты" %}</a>
+<!-- 1. ОБЛОЖКА ПРОЕКТА -->
+<section class="project-hero {% if not project.cover %}project-hero-no-cover{% endif %}">
+  {% if project.cover %}
+    <div class="project-hero-bg" style="background-image: url('{{ project.cover.url }}');"></div>
+    <div class="hero-overlay"></div>
+  {% endif %}
+  
+  <div class="wrap project-hero-content">
+    <a href="{% url 'projects:list' %}" class="back-link-premium" data-aos="fade-right">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      {% translate "Все проекты" %}
+    </a>
 
-    {% if project.category %}
-      <div class="pcat">{{ project.category.name }}</div>
-    {% endif %}
-    <h1>{{ project.title }}</h1>
-
-    <div class="project-meta">
-      {% if project.city %}<span>{{ project.city }}</span>{% endif %}
-      {% if project.year %}<span>{{ project.year }}</span>{% endif %}
-      {% if project.equipment %}<span>{{ project.equipment }}</span>{% endif %}
+    <div class="project-hero-text">
+      {% if project.category %}
+        <div class="pcat-premium" data-aos="fade-up" data-aos-delay="100">{{ project.category.name }}</div>
+      {% endif %}
+      <h1 data-aos="fade-up" data-aos-delay="200">{{ project.title }}</h1>
     </div>
-
-    {% if project.cover %}
-      <img src="{{ project.cover.url }}" alt="{{ project.title }}" class="project-cover">
-    {% endif %}
-
-    {% if project.description %}
-      <div class="project-description">{{ project.description|linebreaks }}</div>
-    {% endif %}
-
-    {% if project.images.all %}
-      <div class="project-gallery">
-        {% for img in project.images.all %}
-          <figure>
-            <img src="{{ img.image.url }}" alt="{{ img.caption|default:project.title }}">
-            {% if img.caption %}<figcaption>{{ img.caption }}</figcaption>{% endif %}
-          </figure>
-        {% endfor %}
-      </div>
-    {% endif %}
   </div>
 </section>
+
+<!-- 2. ИНФОРМАЦИЯ И ОПИСАНИЕ -->
+<section class="project-details-section">
+  <div class="wrap project-details-grid">
+    
+    <!-- Боковая панель с мета-данными -->
+    <aside class="project-sidebar" data-aos="fade-up" data-aos-delay="300">
+      <div class="meta-box">
+        {% if project.city %}
+        <div class="meta-item">
+          <span class="meta-label">{% translate "Локация" %}</span>
+          <span class="meta-value">{{ project.city }}</span>
+        </div>
+        {% endif %}
+        
+        {% if project.year %}
+        <div class="meta-item">
+          <span class="meta-label">{% translate "Год реализации" %}</span>
+          <span class="meta-value">{{ project.year }}</span>
+        </div>
+        {% endif %}
+        
+        {% if project.equipment %}
+        <div class="meta-item">
+          <span class="meta-label">{% translate "Оборудование" %}</span>
+          <span class="meta-value">{{ project.equipment }}</span>
+        </div>
+        {% endif %}
+      </div>
+    </aside>
+
+    <!-- Основной текст описания -->
+    <div class="project-main-content" data-aos="fade-up" data-aos-delay="400">
+      {% if project.description %}
+        <div class="rich-text">
+          {{ project.description|linebreaks }}
+        </div>
+      {% else %}
+        <p class="no-desc">{% translate "Описание проекта готовится к публикации." %}</p>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+<!-- 3. ГАЛЕРЕЯ ПРОЕКТА -->
+{% if project.images.all %}
+<section class="project-gallery-section">
+  <div class="wrap">
+    <h2 class="section-title" data-aos="fade-up">{% translate "Галерея объекта" %}</h2>
+    <div class="pgallery-grid">
+      {% for img in project.images.all %}
+        <figure class="pgallery-item" data-aos="zoom-in" data-aos-delay="100">
+          <a href="{{ img.image.url }}" target="_blank" class="pgallery-link" aria-label="{% translate 'Увеличить фото' %}">
+            <img src="{{ img.image.url }}" alt="{{ img.caption|default:project.title }}" loading="lazy">
+            <div class="pgallery-overlay">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+          </a>
+          {% if img.caption %}
+            <figcaption>{{ img.caption }}</figcaption>
+          {% endif %}
+        </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
 {% endblock %}

@@ -1,55 +1,41 @@
-{% load static i18n %}
-<header id="top">
-  <div class="wrap">
-    <nav class="nav">
-      <a href="{% url 'core:home' %}" class="brand" aria-label="Unilift — на главную">
-        <img src="{% static 'img/logo-unilift-header.png' %}" alt="Unilift">
+{% load static i18n core_extras %}
+<header id="top" class="header">
+  <div class="wrap header-wrap">
+
+    <div class="header-logos">
+      <a href="{% url 'core:home' %}" class="brand">
+        <img src="{% static 'img/logo-unilift-header.png' %}" alt="Unilift" class="main-logo">
       </a>
+      <div class="logo-divider"></div>
+      <img src="{% static 'img/logo-schindler-big.png' %}" alt="Schindler" class="hp-logo">
+    </div>
 
-      <img src="{% static 'img/logo-schindler.png' %}" alt="Официальный дистрибьютор Schindler" class="hp-logo">
-
-      <div class="menu">
+    <div class="header-right">
+      <nav class="menu">
         <a href="{% url 'core:home' %}#why">{% translate "О компании" %}</a>
         <a href="{% url 'core:home' %}#products">{% translate "Оборудование" %}</a>
-        <a href="{% url 'core:home' %}#services">{% translate "Услуги" %}</a>
-        <a href="{% url 'core:home' %}#industries">{% translate "Отрасли" %}</a>
         <a href="{% url 'projects:list' %}">{% translate "Проекты" %}</a>
-        <a href="{% url 'core:home' %}#contacts">{% translate "Контакты" %}</a>
-      </div>
+      </nav>
 
       <div class="nav-cta">
         {% get_current_language as CURRENT_LANGUAGE %}
         <div class="lang-switch">
           <form action="{% url 'set_language' %}" method="post">
             {% csrf_token %}
+            <input name="next" type="hidden" value="{% lang_switch_url 'ru' %}">
             <input type="hidden" name="language" value="ru">
-            <input type="hidden" name="next" value="{{ lang_url_ru }}">
             <button type="submit" class="{% if CURRENT_LANGUAGE == 'ru' %}active{% endif %}">RU</button>
           </form>
+
           <form action="{% url 'set_language' %}" method="post">
             {% csrf_token %}
+            <input name="next" type="hidden" value="{% lang_switch_url 'ky' %}">
             <input type="hidden" name="language" value="ky">
-            <input type="hidden" name="next" value="{{ lang_url_ky }}">
             <button type="submit" class="{% if CURRENT_LANGUAGE == 'ky' %}active{% endif %}">KY</button>
           </form>
         </div>
-
-        <a href="{% url 'core:home' %}#contacts" class="btn btn-primary">{% translate "Связаться" %}</a>
-
-        <button class="burger" id="burger" aria-label="Меню">
-          <span></span><span></span><span></span>
-        </button>
+        <a href="{% url 'core:home' %}#contacts" class="btn-primary">{% translate "Связаться" %}</a>
       </div>
-    </nav>
+    </div>
   </div>
 </header>
-
-<div class="mobile-menu" id="mobileMenu">
-  <a href="{% url 'core:home' %}#why">{% translate "О компании" %}</a>
-  <a href="{% url 'core:home' %}#products">{% translate "Оборудование" %}</a>
-  <a href="{% url 'core:home' %}#services">{% translate "Услуги" %}</a>
-  <a href="{% url 'core:home' %}#industries">{% translate "Отрасли" %}</a>
-  <a href="{% url 'projects:list' %}">{% translate "Проекты" %}</a>
-  <a href="{% url 'core:home' %}#contacts">{% translate "Контакты" %}</a>
-  <a href="{% url 'core:home' %}#contacts" class="btn btn-primary mobile-cta">{% translate "Связаться" %}</a>
-</div>

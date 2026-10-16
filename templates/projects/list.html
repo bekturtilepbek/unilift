@@ -1,18 +1,24 @@
+
 {% extends "base.html" %}
 {% load i18n %}
 
 {% block title %}{% translate "Реализованные проекты" %} — Unilift{% endblock %}
 
 {% block content %}
-<section class="catalog">
+<section class="catalog-page">
   <div class="wrap">
-    <a href="{% url 'core:home' %}" class="back-link">← {% translate "На главную" %}</a>
-    <h1>{% translate "Реализованные проекты" %}</h1>
+    <div class="catalog-header" data-aos="fade-right">
+      <a href="{% url 'core:home' %}" class="back-link-premium">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        {% translate "На главную" %}
+      </a>
+      <h1 class="section-title">{% translate "Реализованные проекты" %}</h1>
+    </div>
 
-    <div class="catalog-filters">
-      <a href="{% url 'projects:list' %}" class="{% if not active_category %}active{% endif %}">{% translate "Все" %}</a>
+    <div class="catalog-filters" data-aos="fade-up">
+      <a href="{% url 'projects:list' %}" class="filter-pill {% if not active_category %}active{% endif %}">{% translate "Все" %}</a>
       {% for cat in categories %}
-        <a href="?category={{ cat.slug }}" class="{% if active_category == cat.slug %}active{% endif %}">{{ cat.name }}</a>
+        <a href="?category={{ cat.slug }}" class="filter-pill {% if active_category == cat.slug %}active{% endif %}">{{ cat.name }}</a>
       {% endfor %}
     </div>
 
@@ -26,16 +32,18 @@
       {% if is_paginated %}
         <div class="pagination">
           {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}{% if active_category %}&category={{ active_category }}{% endif %}">← {% translate "Назад" %}</a>
+            <a href="?page={{ page_obj.previous_page_number }}{% if active_category %}&category={{ active_category }}{% endif %}" class="btn-ghost">← {% translate "Назад" %}</a>
           {% endif %}
-          <span>{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+          <span class="page-current">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
           {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}{% if active_category %}&category={{ active_category }}{% endif %}">{% translate "Далее" %} →</a>
+            <a href="?page={{ page_obj.next_page_number }}{% if active_category %}&category={{ active_category }}{% endif %}" class="btn-ghost">{% translate "Далее" %} →</a>
           {% endif %}
         </div>
       {% endif %}
     {% else %}
-      <p class="catalog-empty">{% translate "Проекты появятся здесь в ближайшее время." %}</p>
+      <div class="catalog-empty">
+        <p>{% translate "Проекты появятся здесь в ближайшее время." %}</p>
+      </div>
     {% endif %}
   </div>
 </section>

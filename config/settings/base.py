@@ -145,8 +145,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Unfold (админка)
 # ---------------------------------------------------------------------------
 UNFOLD = {
-    "SITE_TITLE": "Unilift — управление сайтом",
-    "SITE_HEADER": "Unilift",
+    "SITE_TITLE": "Юнилифт — управление сайтом",
+    "SITE_HEADER": "ЮНИЛИФТ",
     "SHOW_LANGUAGES": True,
     "COLORS": {
         "primary": {

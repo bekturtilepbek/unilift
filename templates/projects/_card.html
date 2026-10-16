@@ -1,5 +1,5 @@
 {% load i18n %}
-<a href="{{ project.get_absolute_url }}" class="pcard-project">
+<a href="{{ project.get_absolute_url }}" class="pcard-project hover-card" data-aos="fade-up">
   <div class="pimg">
     {% if project.cover %}
       <img src="{{ project.cover.url }}" alt="{{ project.title }}">
@@ -11,10 +11,7 @@
     {% endif %}
   </div>
   <div class="pbody">
-    {% if project.category %}
-      <div class="pcat">{{ project.category.name }}</div>
-    {% endif %}
-    <h3>{{ project.title }}</h3>
-    <p>{{ project.summary }}</p>
+    <h3 class="line-clamp-2">{{ project.title }}</h3>
+    <p class="line-clamp-3">{{ project.summary }}</p>
   </div>
 </a>
