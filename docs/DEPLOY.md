@@ -19,7 +19,8 @@
 
 ### 1. Домен
 1. Cloudflare (тот же аккаунт, где туннель `anton`) → **Add a domain** → `unilift.site`, план Free.
-2. В Cloudflare удалить импортированные записи `A @`, `CNAME www`, `CNAME _domainconnect`.
+2. В Cloudflare удалить импортированные записи `A @` (парковка GoDaddy, обычно две: `15.197.148.33`,
+   `3.33.130.190`), `CNAME www`, `CNAME _domainconnect` — иначе маршрут туннеля не сохранится.
 3. GoDaddy → домен → **Nameservers → Change → I'll use my own** → два NS от Cloudflare.
 4. Дождаться статуса **Active**.
 
@@ -41,7 +42,7 @@ chmod 600 ~/.ssh/config
 ssh -T gh-unilift   # "Hi BekturTilepbek/unilift! ..."
 
 sudo mkdir -p /appdata/Unilift/app
-sudo chown miro:miro /appdata/Unilift/app
+sudo chown miro:users /appdata/Unilift/app   # основная группа пользователей OMV — users
 git clone gh-unilift:BekturTilepbek/unilift.git /appdata/Unilift/app
 ```
 
@@ -54,9 +55,10 @@ docker run --rm python:3.13-slim python -c "import secrets; print(secrets.token_
 OMV → Services → Compose → **Files → Create**:
 - Name: `Unilift`
 - File: содержимое `docker-compose.prod.yml`
-- Environment: по образцу `.env.example`
+- Environment: по образцу `.env.example` (OMV сохраняет его в `Unilift.env` и делает симлинк `.env`)
 
-Save → **Up** (первый раз собирает образ, пара минут). Создать администратора:
+Save → **Up** (первый раз собирает образ, пара минут). Если OMV оборвёт по таймауту:
+`cd /appdata/Unilift && sudo docker compose up -d --build`. Создать администратора:
 ```bash
 docker exec -it unilift-web-1 python manage.py createsuperuser
 ```
@@ -69,7 +71,8 @@ Cloudflare → Networking → Tunnels → `anton` → Routes → **Published app
 | (пусто) | `unilift.site` | `http://unilift-web:80` |
 | `www` | `unilift.site` | `http://unilift-web:80` |
 
-Только `http://` — TLS делает Cloudflare.
+Только `http://` — TLS делает Cloudflare. Маршрутов два: один маршрут = одно имя, `*.unilift.site`
+корень домена не покрывает. DNS-записи (CNAME на `<id>.cfargotunnel.com`) Cloudflare создаёт сам.
 
 ## Обновление
 ```bash
