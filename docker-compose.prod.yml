@@ -1,10 +1,15 @@
 # Прод на домашнем сервере за Cloudflare Tunnel (без белого IP и без открытых портов).
 # Этот файл вставляется в OMV UI → Compose → Files (проект Unilift).
+# Код — клон репо в /appdata/Unilift/app, образ собирается на сервере.
 # TLS делает Cloudflare, наружу смотрит только caddy — через общую docker-сеть "edge".
 # Маршрут в туннеле: unilift.site / www.unilift.site → http://unilift-web:80
 services:
   web:
-    image: ghcr.io/bekturtilepbek/unilift:latest
+    build:
+      context: ./app
+      target: base
+    # Пересобирать при каждом Up: после git pull новый код сразу попадает в образ
+    pull_policy: build
     restart: unless-stopped
     command: >
       sh -c "python manage.py migrate --noinput &&

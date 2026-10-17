@@ -9,43 +9,57 @@
                                                    └─► unilift-web:80 (caddy) ─► web:8000 (gunicorn)
 ```
 
-- `web` — образ `ghcr.io/bekturtilepbek/unilift:latest`, при старте `migrate` + `collectstatic`.
+- Код — клон репо в `/appdata/Unilift/app` (deploy key, только чтение), образ собирается на сервере.
+- `web` — gunicorn, при старте `migrate` + `collectstatic`.
 - `caddy` — раздаёт `/media/` (Django при `DEBUG=False` этого не делает), остальное — в gunicorn.
 - Портов на хосте нет. БД — SQLite в volume `db_data`, фото — в `media_data`.
-- Образ собирает GitHub Actions при пуше в `main` (`.github/workflows/deploy.yml`).
+- Compose-проект `Unilift` управляется из OMV UI, файл — `docker-compose.prod.yml`.
 
 ## Первичная настройка
 
 ### 1. Домен
 1. Cloudflare (тот же аккаунт, где туннель `anton`) → **Add a domain** → `unilift.site`, план Free.
-2. GoDaddy → домен → **Nameservers → Change → I'll use my own** → два NS от Cloudflare.
-3. В Cloudflare удалить импортированные записи `A @ Parked`, `CNAME www`, `CNAME _domainconnect`.
+2. В Cloudflare удалить импортированные записи `A @`, `CNAME www`, `CNAME _domainconnect`.
+3. GoDaddy → домен → **Nameservers → Change → I'll use my own** → два NS от Cloudflare.
 4. Дождаться статуса **Active**.
 
-### 2. Сервер
+### 2. Deploy key и клон
+Ключ создаётся на сервере:
 ```bash
-# если образ в GHCR приватный — один раз, токен с правом read:packages
-docker login ghcr.io -u bekturtilepbek
+ssh-keygen -t ed25519 -N "" -f ~/.ssh/deploy_unilift -C "anton-unilift"
+cat ~/.ssh/deploy_unilift.pub   # → GitHub: repo → Settings → Deploy keys → Add (без write)
 
-docker network ls | grep edge   # сеть уже есть; если нет — docker network create edge
+cat >> ~/.ssh/config << 'EOF'
+
+Host gh-unilift
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/deploy_unilift
+  IdentitiesOnly yes
+EOF
+chmod 600 ~/.ssh/config
+ssh -T gh-unilift   # "Hi BekturTilepbek/unilift! ..."
+
+sudo mkdir -p /appdata/Unilift/app
+sudo chown miro:miro /appdata/Unilift/app
+git clone gh-unilift:BekturTilepbek/unilift.git /appdata/Unilift/app
 ```
 
 ### 3. OMV
-OMV → Services → Compose → **Files → Add**:
-- Name: `Unilift`
-- File: содержимое `docker-compose.prod.yml`
-- Environment: по образцу `.env.example` (`DJANGO_SECRET_KEY` сгенерировать заново)
-
-Сгенерировать ключ:
+Сгенерировать ключ Django:
 ```bash
 docker run --rm python:3.13-slim python -c "import secrets; print(secrets.token_urlsafe(50))"
 ```
 
-Затем **Up**. Создать администратора:
+OMV → Services → Compose → **Files → Create**:
+- Name: `Unilift`
+- File: содержимое `docker-compose.prod.yml`
+- Environment: по образцу `.env.example`
+
+Save → **Up** (первый раз собирает образ, пара минут). Создать администратора:
 ```bash
 docker exec -it unilift-web-1 python manage.py createsuperuser
 ```
-(точное имя контейнера — `docker ps | grep unilift`)
 
 ### 4. Маршруты в туннеле `anton`
 Cloudflare → Networking → Tunnels → `anton` → Routes → **Published application**:
@@ -58,10 +72,12 @@ Cloudflare → Networking → Tunnels → `anton` → Routes → **Published app
 Только `http://` — TLS делает Cloudflare.
 
 ## Обновление
-1. Пуш в `main` → дождаться зелёного **Build image** в Actions.
-2. OMV → Compose → Files → `Unilift` → **Pull** → **Up**.
+```bash
+cd /appdata/Unilift/app && git pull
+```
+Затем OMV → Compose → Files → `Unilift` → **Up** (образ пересоберётся, миграции применятся при старте).
 
-Миграции применятся сами при старте контейнера.
+Если `docker-compose.prod.yml` в репо поменялся — обновить его и в OMV (Edit → вставить → Save).
 
 ## Бэкап
 SQLite и фото лежат в volumes `unilift_db_data` и `unilift_media_data` на единственном диске сервера.
@@ -73,6 +89,10 @@ docker run --rm -v unilift_db_data:/db -v unilift_media_data:/media -v /appdata/
 
 ## Проверка
 ```bash
+# изнутри сети edge, как видит туннель
+docker run --rm --network edge curlimages/curl:8.10.1 -sI \
+  -H "Host: unilift.site" -H "X-Forwarded-Proto: https" http://unilift-web/healthz/
+
 curl -sI https://unilift.site/healthz/          # 200
 curl -sI http://unilift.site/ | grep -i location # редирект на https, без цикла
 ```
