@@ -6,12 +6,12 @@ def site_settings(request):
     """
     return {
         "site": {
-            "phone": "+996700000000",
-            "phone_display": "+996 700 000 000",
-            "whatsapp": "https://wa.me/996700000000",
+            "phone": "+996500000114",
+            "phone_display": "+996 500 000 114",
+            "whatsapp": "https://wa.me/996500000114",
             "telegram": "https://t.me/unilift",
-            "email": "info@unilift.kg",
-            "address": "г. Бишкек, ул. Примерная, 1",
+            "email": "uniliftkg@gmail.com",
+            "address": "г. Бишкек, ул. Ташкумырская, 2/2а",
             "work_hours": "Пн–Сб 09:00–18:00",
             "map_url": "",
         }
